@@ -1,25 +1,25 @@
 import csv
-
-# open the file in the write mode
 import random
 
-f = open('Data/MockData.csv', 'w')
+startRange = 1000
+endRange = 10000
 
-# create the csv writer
-writer = csv.writer(f)
+fluctuationStart = 8
+fluctuationEnd = 12
 
-# write a row to the csv file
+numRows = 500
+numCols = 68
 
-data = []
-for col in range(500):
-    randomStart = random.randint(1000, 10000)
-    rows = []
-    for row in range(68):
-        rows.append(randomStart)
-        randomStart += random.randint(8, 12)
-    data.append(rows)
+with open('Data/MockData.csv', 'w', encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
 
-writer.writerows(data)
+    data = []
+    for col in range(numRows):
+        randomStart = random.randint(startRange, endRange)
+        rows = []
+        for row in range(numCols):
+            rows.append(randomStart)
+            randomStart += random.randint(fluctuationStart, fluctuationEnd)
+        data.append(rows)
 
-# close the file
-f.close()
+    writer.writerows(data)
