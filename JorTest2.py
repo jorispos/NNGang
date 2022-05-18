@@ -11,11 +11,14 @@ X, y = make_regression(n_samples=10, random_state=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
 # Initialize the MLP Regressor
-# Parameters inspired by report found on nestor
+# Currently uses the same parameter as the one in the Nestor example report
 regr = MLPRegressor(random_state=1,
-                    max_iter=5000,
+                    max_iter=1000,
                     hidden_layer_sizes=(2, 1),
                     solver="lbfgs",
+                    activation="relu",
+                    tol=0.0001,
+                    alpha=0.00001,
                     )
 
 # Train the MLPRegressor with the training data (X: input, y: output)
