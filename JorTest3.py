@@ -17,12 +17,13 @@ yPrice = []
 for row in csvreader:
     yPrice.append(row)
 
-# Create the dataset
-# X : the input samples
-# y : the output samples
-X, y = make_regression(n_samples=10, random_state=1)
 # Split the dataset between training and testing data
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+# X_train, X_test, y_train, y_test = train_test_split(xTime, yPrice, test_size=0.2, shuffle=False, stratify=None)
+
+X_train = xTime[:60]
+X_test = xTime[60:]
+y_train = yPrice[:400]
+y_test = yPrice[400:]
 
 # Initialize the MLP Regressor
 # Currently uses the same parameter as the one in the Nestor example report
@@ -37,18 +38,6 @@ regr = MLPRegressor(random_state=1,
 
 # Train the MLPRegressor with the training data (X: input, y: output)
 regr.fit(X_train, y_train)
-
-# Print data
-print("overall data X:")
-print(X)
-print("overall data Y:")
-print(y)
-print("data to be predicted:")
-print(X_test[:2])
-
-# Predict using the multi-layer perceptron model.
-print("prediction:")
-print(regr.predict(X_test[:2]))
 
 # Return the coefficient of determination of the prediction.
 print("score (R^2):")
