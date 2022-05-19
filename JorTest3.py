@@ -1,16 +1,12 @@
 # Import Libraries
 from sklearn.neural_network import MLPRegressor
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-import numpy as np
-import matplotlib.pyplot as plt
 import csv
 
 # Load the dataset
 file = open('Data/MockData.csv')
 type(file)
 
-# Extract data from dataset
+# Extract and store data from dataset
 csvreader = csv.reader(file)
 xTime = next(csvreader)
 yPrice = []
