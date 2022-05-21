@@ -1,10 +1,11 @@
 # Yoo lads, I hope this code makes sense, I have tried my best to add as much documentation as possible
-# Try to play around with it and get familiar with it and if you have any questions feel free
-# to let me know - Joris
+# Try to play around with Henk and get familiar with our soon-to-be super-intelligence
+# if you have any questions feel free to let me know - Joris
 
 # Import Libraries
-from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPRegressor
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import csv
 
 # Load the dataset
@@ -54,9 +55,9 @@ for rowIndex in range(XLength):
         X_test.append(X[rowIndex])
         y_test.append(y[rowIndex])
 
-# Initialize the MLP Regressor
-# Currently uses the same parameter as the one in the Nestor example report
-regr = MLPRegressor(random_state=1,
+# Initialize our MLP Regressor, Henk
+# Currently uses the same parameter as the one in the Nestor example report (except for the hidden layer size)
+henk = MLPRegressor(random_state=1,
                     max_iter=10000,
                     hidden_layer_sizes=(5, 5),
                     solver="lbfgs",
@@ -66,15 +67,28 @@ regr = MLPRegressor(random_state=1,
                     )
 
 # Train the MLPRegressor with the training data (X: input, y: output)
-regr.fit(X_train, y_train)
+henk.fit(X_train, y_train)
 
 # Predict using our multi-layer perceptron model.
-print("prediction:")
-print(regr.predict(X_test[:2]))
+print("predictions:")
+predictedValues = henk.predict(X_test)
+print(predictedValues)
 
 # Return the coefficient of determination of the prediction.
 print("score (R^2):")
-print(regr.score(X_test, y_test))
+print(henk.score(X_test, y_test))
+
+# For illustrative purposes; plot the graph and prediction of the first prediction of the set
+plt.plot(range(1,68,1), X_test[0], 'yo')
+plt.plot(68, y_test[0], 'yo')
+plt.plot(68, predictedValues[0], 'ro')
+plt.xlabel('Time')
+plt.ylabel('Price')
+plt.title('Henk in action')
+redLegend = mpatches.Patch(color='red', label='Predicted data')
+yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
+plt.legend(handles=[redLegend, yellowLegend])
+plt.show()
 
 # Used for Debugging! (can ignore for now, or play around with it)
 # Set the two variables to False/True for matrix debugging/visualization
