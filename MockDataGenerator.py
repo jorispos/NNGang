@@ -4,8 +4,8 @@ import random
 startRange = 1000
 endRange = 10000
 
-fluctuationStart = 8
-fluctuationEnd = 12
+fluctuationStart = -15
+fluctuationEnd = 20
 
 numRows = 500
 numCols = 68
@@ -24,3 +24,5 @@ with open('Data/MockData.csv', 'w', encoding='UTF8', newline='') as f:
         data.append(rows)
 
     writer.writerows(data)
+
+print("New .csv file successfully created :)")
