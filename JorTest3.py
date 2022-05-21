@@ -1,6 +1,6 @@
 # Yoo lads, I hope this code makes sense, I have tried my best to add as much documentation as possible
 # Try to play around with Henk and get familiar with our soon-to-be super-intelligence
-# if you have any questions feel free to let me know - Joris
+# if you have any questions feel free to let me know
 
 # Import Libraries
 from sklearn.neural_network import MLPRegressor
@@ -79,9 +79,12 @@ print("score (R^2):")
 print(henk.score(X_test, y_test))
 
 # For illustrative purposes; plot the graph and prediction of the first prediction of the set
-plt.plot(range(1,68,1), X_test[0], 'yo')
-plt.plot(68, y_test[0], 'yo')
-plt.plot(68, predictedValues[0], 'ro')
+# You can use the indexOfData to plot different graphs (based on which prediction), make sure
+# it is < than the actual length of the test array
+indexOfData = 0
+plt.plot(range(1, 68, 1), X_test[indexOfData], 'yo')
+plt.plot(68, y_test[indexOfData], 'yo')
+plt.plot(68, predictedValues[indexOfData], 'ro')
 plt.xlabel('Time')
 plt.ylabel('Price')
 plt.title('Henk in action')
@@ -96,19 +99,6 @@ debugMatrices = False
 debugMatricesInfo = False
 # Print the appropriate info
 if debugMatricesInfo:
-    if debugMatrices:
-        print("x-array:")
-        print(X)
-        print("y-array:")
-        print(y)
-        print("x-train-array")
-        print(X_train)
-        print("y-train-array")
-        print(y_train)
-        print("x-test-array:")
-        print(X_test)
-        print("y-test-array:")
-        print(y_test)
     print("x-hor length: " + str(len(X[0])))
     print("x-ver length: " + str(len(X)))
     print("y-hor length: " + str(len(y)))
@@ -118,3 +108,16 @@ if debugMatricesInfo:
     print("x-hor train length: " + str(len(X_train[0])))
     print("x-ver train length: " + str(len(X_train)))
     print("y-hor train length: " + str(len(y_train)))
+if debugMatrices:
+    print("x-array:")
+    print(X)
+    print("y-array:")
+    print(y)
+    print("x-train-array")
+    print(X_train)
+    print("y-train-array")
+    print(y_train)
+    print("x-test-array:")
+    print(X_test)
+    print("y-test-array:")
+    print(y_test)
