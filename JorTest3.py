@@ -1,3 +1,7 @@
+# Yoo lads, I hope this code makes sense, I have tried my best to add as much documentation as possible
+# Try to play around with it and get familiar with it and if you have any questions feel free
+# to let me know - Joris
+
 # Import Libraries
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPRegressor
@@ -19,11 +23,13 @@ for row in csvreader:
 #      [6, 7, 8]] ||     [9]
 X = []
 y = []
+# NOTE: have to manually set this variable to the length of the time series (68 in our case)
 timeLength = 68
 for row in rows:
     X.append(row[:timeLength-1])
     y.append(row[timeLength-1])
 
+# Length of the amount of data matrices (for x and y)
 XLength = len(y)
 
 # Set to the % of how much data should be used for training
@@ -36,7 +42,7 @@ X_test = []
 y_train = []
 y_test = []
 
-# Split the actual data
+# Split the actual data into testing and training data
 for rowIndex in range(XLength):
     # Should the current row be used for training or test?
     if rowIndex < trainingSize:
@@ -59,10 +65,21 @@ regr = MLPRegressor(random_state=1,
                     alpha=0.00001,
                     )
 
-# Used for Debugging!
+# Train the MLPRegressor with the training data (X: input, y: output)
+regr.fit(X_train, y_train)
+
+# Predict using our multi-layer perceptron model.
+print("prediction:")
+print(regr.predict(X_test[:2]))
+
+# Return the coefficient of determination of the prediction.
+print("score (R^2):")
+print(regr.score(X_test, y_test))
+
+# Used for Debugging! (can ignore for now, or play around with it)
 # Set the two variables to False/True for matrix debugging/visualization
-debugMatrices = True
-debugMatricesInfo = True
+debugMatrices = False
+debugMatricesInfo = False
 # Print the appropriate info
 if debugMatricesInfo:
     if debugMatrices:
@@ -87,10 +104,3 @@ if debugMatricesInfo:
     print("x-hor train length: " + str(len(X_train[0])))
     print("x-ver train length: " + str(len(X_train)))
     print("y-hor train length: " + str(len(y_train)))
-
-# Train the MLPRegressor with the training data (X: input, y: output)
-regr.fit(X_train, y_train)
-
-# Return the coefficient of determination of the prediction.
-print("score (R^2):")
-print(regr.score(X_test, y_test))
