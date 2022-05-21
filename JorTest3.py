@@ -80,9 +80,8 @@ print(henk.score(X_test, y_test))
 
 # For illustrative purposes; plot the graph and prediction of the first prediction of the set
 # numPlots is set to the amount of graphs you want to produce
-numPlots = 4
+numPlots = len(X_test)
 plots = []
-numPlots *= 2
 
 for i in range(numPlots):
     plot = plt.figure(i)
@@ -95,7 +94,9 @@ for i in range(numPlots):
     redLegend = mpatches.Patch(color='red', label='Predicted data')
     yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
     plt.legend(handles=[redLegend, yellowLegend])
-plt.show()
+    plt.show()
+    plots.append(plot)
+
 
 # Used for Debugging! (can ignore for now, or play around with it)
 # Set the two variables to False/True for matrix debugging/visualization
