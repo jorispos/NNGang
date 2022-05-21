@@ -46,6 +46,18 @@ print(y)
 print("data to be predicted:")
 print(X_test[:2])
 
+print("x-hor length: " + str(len(X[0])))
+print("x-ver length: " + str(len(X)))
+print("y-hor length: " + str(len(y)))
+
+print("x-hor test length: " + str(len(X_test[0])))
+print("x-ver test length: " + str(len(X_test)))
+print("y-hor test length: " + str(len(y_test)))
+
+print("x-hor train length: " + str(len(X_train[0])))
+print("x-ver train length: " + str(len(X_train)))
+print("y-hor train length: " + str(len(y_train)))
+
 # Predict using the multi-layer perceptron model.
 print("prediction:")
 print(regr.predict(X_test[:2]))

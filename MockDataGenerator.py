@@ -15,9 +15,6 @@ with open('Data/MockData.csv', 'w', encoding='UTF8', newline='') as f:
 
     data = []
 
-    header = range(numCols)
-    data.append(header)
-
     for col in range(numRows):
         randomStart = random.randint(startRange, endRange)
         rows = []
