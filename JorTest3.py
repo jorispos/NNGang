@@ -79,18 +79,22 @@ print("score (R^2):")
 print(henk.score(X_test, y_test))
 
 # For illustrative purposes; plot the graph and prediction of the first prediction of the set
-# You can use the indexOfData to plot different graphs (based on which prediction), make sure
-# it is < than the actual length of the test array
-indexOfData = 0
-plt.plot(range(1, 68, 1), X_test[indexOfData], 'yo')
-plt.plot(68, y_test[indexOfData], 'yo')
-plt.plot(68, predictedValues[indexOfData], 'ro')
-plt.xlabel('Time')
-plt.ylabel('Price')
-plt.title('Henk in action')
-redLegend = mpatches.Patch(color='red', label='Predicted data')
-yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
-plt.legend(handles=[redLegend, yellowLegend])
+# numPlots is set to the amount of graphs you want to produce
+numPlots = 4
+plots = []
+numPlots *= 2
+
+for i in range(numPlots):
+    plot = plt.figure(i)
+    plt.plot(range(1, 68, 1), X_test[i], 'yo')
+    plt.plot(68, y_test[i], 'yo')
+    plt.plot(68, predictedValues[i], 'ro')
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.title('Henk in action')
+    redLegend = mpatches.Patch(color='red', label='Predicted data')
+    yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
+    plt.legend(handles=[redLegend, yellowLegend])
 plt.show()
 
 # Used for Debugging! (can ignore for now, or play around with it)
