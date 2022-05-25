@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 import csv
 
 # Load the dataset
-file = open('Data/MockData.csv')
+file = open('Data/subset2.csv')
 type(file)
 
 # Extract and store data from dataset
@@ -34,7 +34,7 @@ for row in rows:
 XLength = len(y)
 
 # Set to the % of how much data should be used for training
-trainingSplit = 0.8
+trainingSplit = 0.9
 trainingSize = round(XLength*trainingSplit)
 
 # Split the data into testing and training data (for cross-validation)
@@ -84,7 +84,7 @@ numPlots = len(X_test)
 
 for i in range(numPlots):
     plot = plt.figure(i)
-    plt.plot(range(1, timeLength, 1), X_test[i], 'yo')
+    plt.plot(range(1, timeLength, 1), X_test[i], 'yellow')
     plt.plot(timeLength, y_test[i], 'yo')
     plt.plot(timeLength, predictedValues[i], 'ro')
     plt.xlabel('Time')
