@@ -24,21 +24,11 @@ for row in csvreader:
 #      [6, 7, 8]] ||     [9]
 X = []
 y = []
-
+# NOTE: have to manually set this variable to the length of the time series (68 in our case)
 timeLength = len(rows[0])
-
-# Use to toggle between jump-forward and reiterative predictions
-jumpForward = True
-# predictionPoints can also be seen as the # of output neurons
-if jumpForward:
-    predictionPoints = 6
-else:
-    predictionPoints = 1
-
-
 for row in rows:
-    X.append(row[:timeLength-predictionPoints])
-    y.append(row[timeLength-predictionPoints:timeLength])
+    X.append(row[:timeLength-1])
+    y.append(row[timeLength-1])
 
 # Length of the amount of data matrices (for x and y)
 XLength = len(y)
@@ -90,41 +80,36 @@ print(henk.score(X_test, y_test))
 
 # For illustrative purposes; plot the graph and prediction of the first prediction of the set
 # numPlots is set to the amount of graphs you want to produce
-plot = True
-if plot:
-    numPlots = len(X_test)
-    for i in range(numPlots):
-        plot = plt.figure(i)
-        plt.plot(range(1, timeLength-predictionPoints+1, 1), X_test[i], 'yo')
-        for j in range(predictionPoints):
-            plt.plot(timeLength-predictionPoints+j, y_test[i][j], 'yo')
-            plt.plot(timeLength-predictionPoints+j, predictedValues[i][j], 'ro')
-        plt.xlabel('Time')
-        plt.ylabel('Price')
-        plt.title('Henk in action')
-        redLegend = mpatches.Patch(color='red', label='Predicted data')
-        yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
-        plt.legend(handles=[redLegend, yellowLegend])
-        plt.show()
+numPlots = len(X_test)
+
+for i in range(numPlots):
+    plot = plt.figure(i)
+    plt.plot(range(1, timeLength, 1), X_test[i], 'yo')
+    plt.plot(timeLength, y_test[i], 'yo')
+    plt.plot(timeLength, predictedValues[i], 'ro')
+    plt.xlabel('Time')
+    plt.ylabel('Price')
+    plt.title('Henk in action')
+    redLegend = mpatches.Patch(color='red', label='Predicted data')
+    yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
+    plt.legend(handles=[redLegend, yellowLegend])
+    plt.show()
 
 # Used for Debugging! (can ignore for now, or play around with it)
 # Set the two variables to False/True for matrix debugging/visualization
 debugMatrices = False
-debugMatricesInfo = True
+debugMatricesInfo = False
 # Print the appropriate info
 if debugMatricesInfo:
     print("x-hor length: " + str(len(X[0])))
     print("x-ver length: " + str(len(X)))
     print("y-hor length: " + str(len(y)))
-    print("y-ver length: " + str(len(y[0])))
     print("x-hor test length: " + str(len(X_test[0])))
     print("x-ver test length: " + str(len(X_test)))
     print("y-hor test length: " + str(len(y_test)))
-    print("y-ver test length: " + str(len(y_test[0])))
     print("x-hor train length: " + str(len(X_train[0])))
     print("x-ver train length: " + str(len(X_train)))
     print("y-hor train length: " + str(len(y_train)))
-    print("y-ver train length: " + str(len(y_train[0])))
 if debugMatrices:
     print("x-array:")
     print(X)

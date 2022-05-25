@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b99df979-8862-48c7-85ee-5c79d612d440" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Main2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/MockData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/MockData.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JorTest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JorTest2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JorTest3.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MockDataGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MockDataGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NNtest.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +36,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Joris/Documents/IntelliJProjects/NNGang/JorTest3.py",
+    "last_opened_file_path": "C:/Users/Joris/Documents/IntelliJProjects/NNGang/Main.py",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -55,6 +50,9 @@
       <module name="NNGang" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="C:\Users\Joris\Documents\IntelliJProjects\NNGang\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -131,7 +129,12 @@
       <workItem from="1652866793492" duration="1750000" />
       <workItem from="1652879398073" duration="4298000" />
       <workItem from="1652951604661" duration="2950000" />
-      <workItem from="1653030594238" duration="11264000" />
+      <workItem from="1653030594238" duration="11495000" />
+      <workItem from="1653149393775" duration="3326000" />
+      <workItem from="1653205209736" duration="713000" />
+      <workItem from="1653315026956" duration="326000" />
+      <workItem from="1653315381061" duration="1479000" />
+      <workItem from="1653466950748" duration="342000" />
     </task>
     <servers />
   </component>
