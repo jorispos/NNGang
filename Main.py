@@ -31,7 +31,7 @@ timeLength = len(rows[0])
 jumpForward = True
 # predictionPoints can also be seen as the # of output neurons
 if jumpForward:
-    predictionPoints = 6
+    predictionPoints = 18
 else:
     predictionPoints = 1
 
@@ -71,7 +71,7 @@ henk = MLPRegressor(random_state=1,
                     max_iter=10000,
                     hidden_layer_sizes=(5, 5),
                     solver="lbfgs",
-                    activation="relu",
+                    activation="identity",
                     tol=0.0001,
                     alpha=0.00001,
                     )
