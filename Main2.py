@@ -7,6 +7,12 @@ from sklearn.neural_network import MLPRegressor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import csv
+import meegkit
+from meegkit.detrend import regress, detrend
+import numpy as np
+from matplotlib import mlab
+import scipy
+
 
 # Load the dataset
 file = open('Data/subset2.csv')
@@ -18,6 +24,24 @@ rows = []
 for row in csvreader:
     intRow = [int(x) for x in row]
     rows.append(intRow)
+
+#np.array(rows)
+
+# y, _, = meegkit.detrend.detrend(
+#       np.array(rows)
+#     , w=None
+#     , order=2
+#     , basis='polynomials'
+#     , threshold=3
+#     , n_iter=4
+#     , show=True)
+
+#y, _, _ = detrend(np.array(rows), 2)
+
+
+#print(mlab.detrend_linear(rows))
+
+rows = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
 
 # Split up all data so that:
 # X = [[1, 2, 3], || y = [4,
