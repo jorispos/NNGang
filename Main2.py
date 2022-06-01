@@ -7,11 +7,11 @@ from sklearn.neural_network import MLPRegressor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import csv
-import meegkit
 from meegkit.detrend import regress, detrend
 import numpy as np
 from matplotlib import mlab
 import scipy
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 # Load the dataset
@@ -41,7 +41,11 @@ for row in csvreader:
 
 #print(mlab.detrend_linear(rows))
 
-rows = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
+#rows = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
+
+#for row in rows:
+#    ExponentialSmoothing(np.array(row), trend="add", seasonal="add", seasonal_periods=12)
+
 
 # Split up all data so that:
 # X = [[1, 2, 3], || y = [4,
