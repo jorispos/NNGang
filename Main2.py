@@ -56,9 +56,9 @@ trends = []
 thisTrend = []
 
 for row in rows:
-    trainrow = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
+    trainrow = scipy.signal.detrend(row, axis=- 1, type='linear', bp=0, overwrite_data=False)
     #print(trainrow)
-    for point in trainrow:
+    for point in range(len(trainrow)):
         thisTrendPoint = row[point] - trainrow[point]
         thisTrend.append(thisTrend)
     trends.append(thisTrend)
