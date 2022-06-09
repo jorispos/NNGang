@@ -10,7 +10,7 @@ fluctuationEnd = 20
 numRows = 500
 numCols = 68
 
-with open('Data/MockData.csv', 'w', encoding='UTF8', newline='') as f:
+with open('../Data/MockData.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
 
     data = []

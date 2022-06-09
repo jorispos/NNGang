@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b99df979-8862-48c7-85ee-5c79d612d440" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Main3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Splitter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Program/Utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NNGang.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NNGang.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/experimental/Main2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main3.py" beforeDir="false" afterPath="$PROJECT_DIR$/experimental/Main3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MockDataGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/MockDataGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Splitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Splitter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +51,8 @@
       <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Program" />
+      <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\experimental" />
       <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Data" />
     </key>
   </component>
@@ -86,7 +92,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MockDataGenerator.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Program\MockDataGenerator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,7 +150,7 @@
       <workItem from="1654152635594" duration="1362000" />
       <workItem from="1654505612744" duration="2980000" />
       <workItem from="1654529512247" duration="10000" />
-      <workItem from="1654677163678" duration="3403000" />
+      <workItem from="1654677163678" duration="5187000" />
     </task>
     <servers />
   </component>
