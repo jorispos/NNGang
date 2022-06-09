@@ -7,6 +7,7 @@ from sklearn.neural_network import MLPRegressor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import csv
+import meegkit.detrend
 from meegkit.detrend import regress, detrend
 import numpy as np
 from matplotlib import mlab
@@ -26,25 +27,46 @@ for row in csvreader:
     rows.append(intRow)
 
 #np.array(rows)
+# rows = np.array(rows)
+# rows.astype(int)
 
-# y, _, = meegkit.detrend.detrend(
-#       np.array(rows)
-#     , w=None
-#     , order=2
-#     , basis='polynomials'
-#     , threshold=3
-#     , n_iter=4
-#     , show=True)
+# for row in rows:
+#     row = np.array(row)
+#     row.astype(int)
+
+#     row = meegkit.detrend.detrend(
+#         row
+#         , w=None
+#         , order=2
+#         , basis='polynomials'
+#         , threshold=3
+#         , n_iter=4
+#         , show=True)
+
+#https://www.statsmodels.org/dev/generated/statsmodels.tsa.statespace.sarimax.SARIMAX.html
 
 #y, _, _ = detrend(np.array(rows), 2)
 
 
 #print(mlab.detrend_linear(rows))
+# for row in rows:
+#     row = mlab.detrend_linear(row)
+
+trends = []
+thisTrend = []
+
+for row in rows:
+    trainrow = scipy.signal.detrend(row, axis=- 1, type='linear', bp=0, overwrite_data=False)
+    #print(trainrow)
+    for point in range(len(trainrow)):
+        thisTrendPoint = row[point] - trainrow[point]
+        thisTrend.append(thisTrend)
+    trends.append(thisTrend)
 
 #rows = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
 
-#for row in rows:
-#    ExponentialSmoothing(np.array(row), trend="add", seasonal="add", seasonal_periods=12)
+# for row in rows:
+#     ExponentialSmoothing(np.array(row), trend="add", seasonal="add", seasonal_periods=12)
 
 
 # Split up all data so that:
