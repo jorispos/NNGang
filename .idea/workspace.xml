@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b99df979-8862-48c7-85ee-5c79d612d440" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Program/Preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program/MockDataGenerator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program/Utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program/Splitter.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,16 +32,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Joris/Documents/IntelliJProjects/NNGang/Program/Main.py",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Joris/Documents/IntelliJProjects/NNGang/Program/Main.py&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Data" />
@@ -143,7 +144,9 @@
       <workItem from="1654505612744" duration="2980000" />
       <workItem from="1654529512247" duration="10000" />
       <workItem from="1654677163678" duration="8096000" />
-      <workItem from="1654857722795" duration="3552000" />
+      <workItem from="1654857722795" duration="3679000" />
+      <workItem from="1654970069752" duration="1223000" />
+      <workItem from="1654981876080" duration="354000" />
     </task>
     <servers />
   </component>
