@@ -15,5 +15,5 @@ def splitSeries(timeSeries, frameWidth, emptySpace):
     return series
 
 # I would create functions for detrending, deseasonalizing, and scaling here bellow
-# They would probably take some matrix and return the preprocessed matrix,
+# They would probably take some time series vector/matrix and return the preprocessed version,
 # You  may want to also save the model of the trend/seasons/scale so that they can be added back later
