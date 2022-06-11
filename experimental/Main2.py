@@ -7,16 +7,16 @@ from sklearn.neural_network import MLPRegressor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import csv
-import meegkit.detrend
-from meegkit.detrend import regress, detrend
+# import meegkit.detrend
+# from meegkit.detrend import regress, detrend
 import numpy as np
 from matplotlib import mlab
 import scipy
-from statsmodels.tsa.holtwinters import ExponentialSmoothing
+# from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 # Load the dataset
-file = open('Data/subset2.csv')
+file = open('../Data/subset2.csv')
 type(file)
 
 # Extract and store data from dataset
@@ -52,16 +52,16 @@ for row in csvreader:
 # for row in rows:
 #     row = mlab.detrend_linear(row)
 
-trends = []
-thisTrend = []
-
-for row in rows:
-    trainrow = scipy.signal.detrend(row, axis=- 1, type='linear', bp=0, overwrite_data=False)
-    #print(trainrow)
-    for point in range(len(trainrow)):
-        thisTrendPoint = row[point] - trainrow[point]
-        thisTrend.append(thisTrend)
-    trends.append(thisTrend)
+# trends = []
+# thisTrend = []
+#
+# for row in rows:
+#     trainrow = scipy.signal.detrend(row, axis=- 1, type='linear', bp=0, overwrite_data=False)
+#     #print(trainrow)
+#     for point in range(len(trainrow)):
+#         thisTrendPoint = row[point] - trainrow[point]
+#         thisTrend.append(thisTrend)
+#     trends.append(thisTrend)
 
 #rows = scipy.signal.detrend(rows, axis=- 1, type='linear', bp=0, overwrite_data=False)
 

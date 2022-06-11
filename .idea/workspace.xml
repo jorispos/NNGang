@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b99df979-8862-48c7-85ee-5c79d612d440" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Program/Utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Program/Data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Program/Henk.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/experimental/Main2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main3.py" beforeDir="false" afterPath="$PROJECT_DIR$/experimental/Main3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MockDataGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/MockDataGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Splitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Splitter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program/Utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program/Utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experimental/Main2.py" beforeDir="false" afterPath="$PROJECT_DIR$/experimental/Main2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,16 +35,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Joris/Documents/IntelliJProjects/NNGang/Main2.py&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Joris/Documents/IntelliJProjects/NNGang/Program/Main.py",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Joris\Documents\IntelliJProjects\NNGang\Data" />
@@ -61,16 +60,13 @@
       <module name="NNGang" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="C:\Users\Joris\Documents\IntelliJProjects\NNGang\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Program" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Program/Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -150,7 +146,8 @@
       <workItem from="1654152635594" duration="1362000" />
       <workItem from="1654505612744" duration="2980000" />
       <workItem from="1654529512247" duration="10000" />
-      <workItem from="1654677163678" duration="5187000" />
+      <workItem from="1654677163678" duration="8096000" />
+      <workItem from="1654857722795" duration="3031000" />
     </task>
     <servers />
   </component>
