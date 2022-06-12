@@ -53,10 +53,9 @@ def removeTrend(timeSeries, trend):
     # Reformat X and y
     X = range(len(timeSeries))
     X = np.reshape(X, (len(X), 1))
-    y = timeSeries
 
     # Remove trend from original model
-    detrendedSeries = [y[i] - trend[i] for i in range(0, len(y))]
+    detrendedSeries = [timeSeries[i] - trend[i] for i in range(0, len(timeSeries))]
 
     # For debugging
     plt.plot(X, detrendedSeries)
