@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
 
 
 def splitSeries(timeSeries, frameWidth, emptySpace):
@@ -63,3 +64,17 @@ def removeTrend(timeSeries, trend):
     plt.show()
 
     return detrendedSeries
+
+
+
+def deseasonalize(df): #(dataframe):        dit is from https://www.kaggle.com/code/prashant111/complete-guide-on-time-series-analysis-in-python/notebook
+    # Subtracting the Trend Component
+
+    # Time Series Decomposition
+    result_mul = seasonal_decompose(df, model='multiplicative', period=30)
+
+
+    # Deseasonalize
+    deseasonalized = df.values / result_mul.seasonal
+
+    return deseasonalized
