@@ -4,6 +4,8 @@ import Program.Preprocessing as preprocessing
 from Program.Data import Data
 from Program.Henk import Henk
 
+
+
 # Config constants
 dataPath = '../Data/subset2.csv'
 trainingSplit = 0.9
