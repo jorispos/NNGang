@@ -66,15 +66,28 @@ def removeTrend(timeSeries, trend):
     return detrendedSeries
 
 
-
-def deseasonalize(df): #(dataframe):        dit is from https://www.kaggle.com/code/prashant111/complete-guide-on-time-series-analysis-in-python/notebook
+def deseasonalize(df):
     # Subtracting the Trend Component
 
     # Time Series Decomposition
-    result_mul = seasonal_decompose(df, model='multiplicative', period=30)
-
+    result_mul = seasonal_decompose(df, model='additive', period=30)
 
     # Deseasonalize
-    deseasonalized = df.values / result_mul.seasonal
+    deseasonalized = df - result_mul.seasonal
+
+    plt.plot(df)
+    plt.title('Original frame', fontsize=16)
+    plt.plot()
+    plt.show()
+
+    plt.plot(result_mul.seasonal)
+    plt.title('Seasons', fontsize=16)
+    plt.plot()
+    plt.show()
+
+    plt.plot(deseasonalized)
+    plt.title('Deseasonalized frame', fontsize=16)
+    plt.plot()
+    plt.show()
 
     return deseasonalized

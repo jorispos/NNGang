@@ -30,5 +30,6 @@ print(score)
 
 # Visually display the graphs
 # utils.displayGraphs(data.X_test, data.y_test, predictedValues, data.timeLength)
-trend = preprocessing.getTrend(timeSeriesMatrix[0])
-detrend = preprocessing.removeTrend(timeSeriesMatrix[0], trend)
+#trend = preprocessing.getTrend(timeSeriesMatrix[0])
+#detrend = preprocessing.removeTrend(timeSeriesMatrix[0], trend)
+deseason = preprocessing.deseasonalize(timeSeriesMatrix[0])
