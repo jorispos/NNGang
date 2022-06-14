@@ -66,25 +66,25 @@ def removeTrend(timeSeries, trend):
     return detrendedSeries
 
 
-def deseasonalize(df):
-    # Subtracting the Trend Component
-
+def getSeasons(timeSeries):
     # Time Series Decomposition
-    result_mul = seasonal_decompose(df, model='additive', period=30)
+    result_mul = seasonal_decompose(timeSeries, model='additive', period=30)
+    return result_mul.seasonal
 
+
+def removeSeasons(timeSeries, seasons):
     # Deseasonalize
-    deseasonalized = df - result_mul.seasonal
+    deseasonalized = timeSeries - seasons
 
-    plt.plot(df)
+    # For debugging
+    plt.plot(timeSeries)
     plt.title('Original frame', fontsize=16)
     plt.plot()
     plt.show()
-
-    plt.plot(result_mul.seasonal)
+    plt.plot(seasons)
     plt.title('Seasons', fontsize=16)
     plt.plot()
     plt.show()
-
     plt.plot(deseasonalized)
     plt.title('Deseasonalized frame', fontsize=16)
     plt.plot()

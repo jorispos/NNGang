@@ -4,8 +4,6 @@ import Program.Preprocessing as preprocessing
 from Program.Data import Data
 from Program.Henk import Henk
 
-
-
 # Config constants
 dataPath = '../Data/subset2.csv'
 trainingSplit = 0.9
@@ -30,6 +28,9 @@ print(score)
 
 # Visually display the graphs
 # utils.displayGraphs(data.X_test, data.y_test, predictedValues, data.timeLength)
-#trend = preprocessing.getTrend(timeSeriesMatrix[0])
-#detrend = preprocessing.removeTrend(timeSeriesMatrix[0], trend)
-deseason = preprocessing.deseasonalize(timeSeriesMatrix[0])
+
+# Experimental/Debugging
+# trend = preprocessing.getTrend(timeSeriesMatrix[0])
+# detrend = preprocessing.removeTrend(timeSeriesMatrix[0], trend)
+season = preprocessing.getSeasons(timeSeriesMatrix[0])
+deseason = preprocessing.removeSeasons(timeSeriesMatrix[0], season)
