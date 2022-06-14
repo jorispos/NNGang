@@ -36,13 +36,6 @@ def getTrend(timeSeries):
     md2.fit(Xp, y)
     trend = md2.predict(Xp)
 
-    # For debugging
-    # plt.plot(X, y)
-    # plt.plot(X, trend)
-    # plt.title('Original + trend overlay', fontsize=16)
-    # plt.legend(['data', 'polynomial trend'])
-    # plt.show()
-
     return trend
 
 
@@ -54,11 +47,6 @@ def removeTrend(timeSeries, trend):
 
     # Remove trend from original model
     detrendedSeries = [timeSeries[i] - trend[i] for i in range(0, len(timeSeries))]
-
-    # For debugging
-    # plt.plot(X, detrendedSeries)
-    # plt.title('Original detrended', fontsize=16)
-    # plt.show()
 
     return detrendedSeries
 
@@ -72,15 +60,5 @@ def getSeasons(timeSeries):
 def removeSeasons(timeSeries, seasons):
     # Deseasonalize
     deseasonalized = timeSeries - seasons
-
-    # For debugging
-    # plt.plot(seasons)
-    # plt.title('Seasons (after detrending)', fontsize=16)
-    # plt.plot()
-    # plt.show()
-    # plt.plot(deseasonalized)
-    # plt.title('Detrended and Deseasonalized', fontsize=16)
-    # plt.plot()
-    # plt.show()
 
     return deseasonalized

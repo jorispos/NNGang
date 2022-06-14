@@ -5,9 +5,10 @@ import Program.Utils as utils
 import Program.Preprocessing as preprocessing
 from Program.Data import Data
 from Program.Henk import Henk
-from sklearn.preprocessing import MinMaxScaler
 
 # Config constants
+from Program.Scaler import Scaler
+
 dataPath = '../Data/subset2.csv'
 trainingSplit = 0.9
 
@@ -50,18 +51,23 @@ deseason3 = preprocessing.removeSeasons(detrend3, season3)
 
 scaleData = [deseason1, deseason2, deseason3]
 
-scaler = MinMaxScaler()
+# MinMaxScaler
+scaler = Scaler()
 scaler.fit(scaleData)
-
 scaledData = scaler.transform(scaleData)
 
+# StandardScaler
+# scaler = StandardScaler()
+# scaler.fit(scaleData)
+# scaledData = scaler.transform(scaleData)
+
 # Display matrix[0] process
-plt.plot(timeSeriesMatrix[0])
-plt.title('Original', fontsize=16)
-plt.show()
-plt.plot(detrend1)
-plt.title('Detrended', fontsize=16)
-plt.show()
+# plt.plot(timeSeriesMatrix[0])
+# plt.title('Original', fontsize=16)
+# plt.show()
+# plt.plot(detrend1)
+# plt.title('Detrended', fontsize=16)
+# plt.show()
 plt.plot(deseason1)
 plt.title('Deseasoned', fontsize=16)
 plt.show()
@@ -74,3 +80,5 @@ plt.show()
 plt.plot(scaledData[2])
 plt.title('Scaled 2', fontsize=16)
 plt.show()
+
+print("program finished :)")
