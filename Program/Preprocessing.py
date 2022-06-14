@@ -21,11 +21,6 @@ def splitSeries(timeSeries, frameWidth, emptySpace):
 
     return series
 
-
-# I would create functions for deseasonalizing and scaling here bellow
-# They would probably take some time series vector/matrix and return the preprocessed version,
-# You  may want to also save the model of the seasons/scale so that they can be added back later
-
 # Gets all the trend points of a given timeseries
 def getTrend(timeSeries):
     # Reformat X and y
@@ -68,7 +63,7 @@ def removeTrend(timeSeries, trend):
 
 def getSeasons(timeSeries):
     # Time Series Decomposition
-    result_mul = seasonal_decompose(timeSeries, model='additive', period=30)
+    result_mul = seasonal_decompose(timeSeries, model='additive', period=7)
     return result_mul.seasonal
 
 
