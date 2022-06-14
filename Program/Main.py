@@ -34,51 +34,30 @@ print(score)
 # utils.displayGraphs(data.X_test, data.y_test, predictedValues, data.timeLength)
 
 # Experimental/Debugging for testing
-trend1 = preprocessing.getTrend(timeSeriesMatrix[0])
-detrend1 = preprocessing.removeTrend(timeSeriesMatrix[0], trend1)
-season1 = preprocessing.getSeasons(detrend1)
-deseason1 = preprocessing.removeSeasons(detrend1, season1)
+deseasoned = []
+for i in range(10):
+    trend = preprocessing.getTrend(timeSeriesMatrix[i])
+    detrend = preprocessing.removeTrend(timeSeriesMatrix[i], trend)
+    season = preprocessing.getSeasons(detrend)
+    deseason = preprocessing.removeSeasons(detrend, season)
+    deseasoned.append(deseason)
+    plt.plot(deseason)
+    plt.title('Deseasoned ' + str(i), fontsize=16)
+    plt.show()
 
-trend2 = preprocessing.getTrend(timeSeriesMatrix[1])
-detrend2 = preprocessing.removeTrend(timeSeriesMatrix[1], trend2)
-season2 = preprocessing.getSeasons(detrend2)
-deseason2 = preprocessing.removeSeasons(detrend2, season2)
-
-trend3 = preprocessing.getTrend(timeSeriesMatrix[2])
-detrend3 = preprocessing.removeTrend(timeSeriesMatrix[2], trend3)
-season3 = preprocessing.getSeasons(detrend3)
-deseason3 = preprocessing.removeSeasons(detrend3, season3)
-
-scaleData = [deseason1, deseason2, deseason3]
-
-# MinMaxScaler
+# Scale the data
 scaler = Scaler()
-scaler.fit(scaleData)
-scaledData = scaler.transform(scaleData)
+scaler.fit(deseasoned)
+scaledData = scaler.transform(deseasoned)
+
+for i in range(len(scaledData)):
+    plt.plot(scaledData[i])
+    plt.title('Scaled ' + str(i), fontsize=16)
+    plt.show()
 
 # StandardScaler
 # scaler = StandardScaler()
 # scaler.fit(scaleData)
 # scaledData = scaler.transform(scaleData)
-
-# Display matrix[0] process
-# plt.plot(timeSeriesMatrix[0])
-# plt.title('Original', fontsize=16)
-# plt.show()
-# plt.plot(detrend1)
-# plt.title('Detrended', fontsize=16)
-# plt.show()
-plt.plot(deseason1)
-plt.title('Deseasoned', fontsize=16)
-plt.show()
-plt.plot(scaledData[0])
-plt.title('Scaled', fontsize=16)
-plt.show()
-plt.plot(deseason2)
-plt.title('Deseasoned 2', fontsize=16)
-plt.show()
-plt.plot(scaledData[2])
-plt.title('Scaled 2', fontsize=16)
-plt.show()
 
 print("program finished :)")
