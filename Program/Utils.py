@@ -83,6 +83,7 @@ def createMockData(startRange, endRange, fluctuationStart, fluctuationEnd, numRo
 
 def plotDataMatrix(matrix, title, fontSize):
     for i in range(len(matrix)):
+        print("plotting scaled (" + str(i+1) + "/" + str(len(matrix)) + ")..")
         plotData(matrix[i], title + str(i), fontSize)
 
 
