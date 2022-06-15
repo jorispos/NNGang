@@ -1,14 +1,11 @@
 # Imports
-from matplotlib import pyplot as plt
-
 import Program.Utils as utils
 import Program.Preprocessing as preprocessing
 from Program.Data import Data
 from Program.Henk import Henk
-
-# Config constants
 from Program.Scaler import Scaler
 
+# Constants
 dataPath = '../Data/subset2.csv'
 trainingSplit = 0.9
 
@@ -34,26 +31,22 @@ print(score)
 # utils.displayGraphs(data.X_test, data.y_test, predictedValues, data.timeLength)
 
 # Experimental/Debugging for testing
-deseasoned = []
-for i in range(10):
+preprocessed = []
+numTests = 20
+
+for i in range(numTests):
     trend = preprocessing.getTrend(timeSeriesMatrix[i])
     detrend = preprocessing.removeTrend(timeSeriesMatrix[i], trend)
     season = preprocessing.getSeasons(detrend)
     deseason = preprocessing.removeSeasons(detrend, season)
-    deseasoned.append(deseason)
-    plt.plot(deseason)
-    plt.title('Deseasoned ' + str(i), fontsize=16)
-    plt.show()
+    preprocessed.append(deseason)
+    utils.plotData(deseason, 'Preprocessed ' + str(i), 16)
 
 # Scale the data
 scaler = Scaler()
-scaler.fit(deseasoned)
-scaledData = scaler.transform(deseasoned)
-
-for i in range(len(scaledData)):
-    plt.plot(scaledData[i])
-    plt.title('Scaled ' + str(i), fontsize=16)
-    plt.show()
+scaler.fit(preprocessed)
+scaledData = scaler.transform(preprocessed)
+utils.plotDataMatrix(scaledData, 'Scaled ', 16)
 
 # StandardScaler
 # scaler = StandardScaler()

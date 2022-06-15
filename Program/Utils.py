@@ -80,4 +80,13 @@ def createMockData(startRange, endRange, fluctuationStart, fluctuationEnd, numRo
             randomStart += (random.randint(fluctuationStart, fluctuationEnd)) * positiveTrend
         data.append(rows)
 
-    return data
+
+def plotDataMatrix(matrix, title, fontSize):
+    for i in range(len(matrix)):
+        plotData(matrix[i], title + str(i), fontSize)
+
+
+def plotData(yVals, title, fontSize):
+    plt.plot(yVals)
+    plt.title(title, fontsize=fontSize)
+    plt.show()
