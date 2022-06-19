@@ -2,9 +2,13 @@ import csv
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import random
+import Program.Preprocessing as preprocessing
 
 
 # Read CSV file and return the integer matrix
+import numpy
+
+
 def getRows(path):
     # Load the dataset
     file = open(path)
@@ -83,7 +87,7 @@ def createMockData(startRange, endRange, fluctuationStart, fluctuationEnd, numRo
 
 def plotDataMatrix(matrix, title, fontSize):
     for i in range(len(matrix)):
-        print("plotting scaled (" + str(i+1) + "/" + str(len(matrix)) + ")..")
+        print("plotting scaled (" + str(i + 1) + "/" + str(len(matrix)) + ")..")
         plotData(matrix[i], title + str(i), fontSize)
 
 
@@ -91,3 +95,65 @@ def plotData(yVals, title, fontSize):
     plt.plot(yVals)
     plt.title(title, fontsize=fontSize)
     plt.show()
+
+
+def mergeArrays(array1, array2):
+    newArray = []
+    for row in array1:
+        newArray.append(row)
+    for row in array2:
+        newArray.append(row)
+    return newArray
+
+
+# add points to end of each array 1 and shift array1 over to the right (assumes equal height)
+def addAndShift(array1, points):
+    newArray1 = []
+    for i in range(len(array1)):
+        row = array1[i]
+        row = numpy.append(row, points[i])
+        row = numpy.delete(row, 0)
+        newArray1.append(row)
+    return newArray1
+
+def transpose(matrix):
+    rows = len(matrix)
+    columns = len(matrix[0])
+
+    matrix_T = []
+    for j in range(columns):
+        row = []
+        for i in range(rows):
+            row.append(matrix[i][j])
+        matrix_T.append(row)
+
+    return matrix_T
+
+def detrendAndDeseasonMatrix(matrix):
+    detrendedAndDeseasoned = []
+    for timeSeries in matrix:
+        # Detrend
+        trend = preprocessing.getTrend(timeSeries)
+        detrended = preprocessing.removeTrend(timeSeries, trend)
+        # Deseason the detrended data
+        season = preprocessing.getSeasons(detrended)
+        deseasoned = preprocessing.removeSeasons(timeSeries, season)
+        # Add detrended and deseasoned data to list
+        detrendedAndDeseasoned.append(deseasoned)
+    return detrendedAndDeseasoned
+
+def detrendAndDeseason(timeSeries):
+    trend = preprocessing.getTrend(timeSeries)
+    detrended = preprocessing.removeTrend(timeSeries, trend)
+    # Deseason the detrended data
+    season = preprocessing.getSeasons(detrended)
+    deseasoned = preprocessing.removeSeasons(timeSeries, season)
+    return deseasoned
+
+def splitMultipleSeries(matrix, frameWidth):
+    splitSeries = []
+    for timeSeries in matrix:
+        splitTimeSeries = preprocessing.splitSeries(timeSeries, frameWidth, 0)
+        for series in splitTimeSeries:
+            splitSeries.append(series)
+    return splitSeries

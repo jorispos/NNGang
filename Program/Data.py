@@ -1,39 +1,40 @@
+import Program.Utils as utils
+
 class Data:
-    X = []
-    y = []
-    X_train = []
-    X_test = []
-    y_train = []
-    y_test = []
-    timeLength = 0
-    trainingSplit = 0
-    trainingSize = 0
-    XLength = 0
+
     matrix = []
 
-    def __init__(self, matrix, trainingSplit):
-        self.trainingSplit = trainingSplit
+    train = []
+    test = []
+    shown = []
+    hidden = []
+    x = []
+    y = []
+
+    def __init__(self, matrix):
         self.matrix = matrix
 
-    def handle(self):
-        self.splitXY()
-        self.splitTrainTest()
-
-    def splitXY(self):
-        self.timeLength = len(self.matrix[0])
+    # split all of the data in the points that we do know, and the points that were not known in the m3 competition
+    def splitHidden(self, trainingPoints):
         for row in self.matrix:
-            self.X.append(row[:self.timeLength-1])
-            self.y.append(row[self.timeLength-1])
-        self.XLength = len(self.y)
-        self.trainingSize = round(self.XLength*self.trainingSplit)
+            rowLength = len(row)
+            self.shown.append(row[:rowLength-trainingPoints])
+            self.hidden.append(row[rowLength-trainingPoints:])
 
-    def splitTrainTest(self):
-        for rowIndex in range(self.XLength):
-            if rowIndex < self.trainingSize:
+    # split the known data, i.e. shown into the training data and the testing data(for cross-validation)
+    def splitTrainTest(self, trainingSplit):
+        matrixHeight = len(self.matrix)
+        trainingSize = round(matrixHeight*trainingSplit)
+
+        for rowIndex in range(matrixHeight):
+            if rowIndex < trainingSize:
                 # Use current row for training
-                self.X_train.append(self.X[rowIndex])
-                self.y_train.append(self.y[rowIndex])
+                self.train.append(self.shown[rowIndex])
             else:
                 # Use current row for testing
-                self.X_test.append(self.X[rowIndex])
-                self.y_test.append(self.y[rowIndex])
+                self.test.append(self.shown[rowIndex])
+
+    def splitXY(self):
+        for row in self.matrix:
+            self.x.append(row[:len(row)-1])
+            self.y.append(row[len(row)-1])
