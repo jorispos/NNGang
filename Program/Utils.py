@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import random
 import Program.Preprocessing as preprocessing
-
-
-# Read CSV file and return the integer matrix
 import numpy
 
 
@@ -116,6 +113,7 @@ def addAndShift(array1, points):
         newArray1.append(row)
     return newArray1
 
+
 def transpose(matrix):
     rows = len(matrix)
     columns = len(matrix[0])
@@ -128,6 +126,7 @@ def transpose(matrix):
         matrix_T.append(row)
 
     return matrix_T
+
 
 def detrendAndDeseasonMatrix(matrix):
     detrendedAndDeseasoned = []
@@ -142,6 +141,7 @@ def detrendAndDeseasonMatrix(matrix):
         detrendedAndDeseasoned.append(deseasoned)
     return detrendedAndDeseasoned
 
+
 def detrendAndDeseason(timeSeries):
     trend = preprocessing.getTrend(timeSeries)
     detrended = preprocessing.removeTrend(timeSeries, trend)
@@ -150,6 +150,7 @@ def detrendAndDeseason(timeSeries):
     deseasoned = preprocessing.removeSeasons(timeSeries, season)
     return deseasoned
 
+
 def splitMultipleSeries(matrix, frameWidth):
     splitSeries = []
     for timeSeries in matrix:
@@ -157,3 +158,39 @@ def splitMultipleSeries(matrix, frameWidth):
         for series in splitTimeSeries:
             splitSeries.append(series)
     return splitSeries
+
+
+def getTrends(matrix):
+    trends = []
+    for row in matrix:
+        trends.append(preprocessing.getTrend(row))
+    return trends
+
+
+def getDetrendedSeasons(matrix):
+    seasons = []
+    for row in matrix:
+        row = preprocessing.removeTrend(row, preprocessing.getTrend(row))
+        seasons.append(preprocessing.getSeasons(row))
+    return seasons
+
+
+def getLastFrames(matrix, frameWidth):
+    startingFrames = []
+    for row in matrix:
+        startingFrames.append(row[len(row) - frameWidth:])
+    return startingFrames
+
+
+def appendRows(matrix1, matrix2):
+    newMatrix = []
+    for i in range(len(matrix1)):
+        newMatrix.append(numpy.append(matrix1[i], matrix2[i]))
+    return newMatrix
+
+
+def duplicateMatrix(matrix):
+    newMatrix = []
+    for row in matrix:
+        newMatrix.append(row)
+    return newMatrix

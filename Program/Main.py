@@ -82,46 +82,61 @@ print("Henk R^2 score: " + str(score))
 
 # ---> Get the Trends and Seasons of all Timeseries (used for preprocessing, not training)
 print("Getting Henk ready for competition..")
-trends = []
-detrendedSeasons = []
-for timeSeries in data.matrix:
-    trend = preprocessing.getTrend(timeSeries)
-    detrended = preprocessing.removeTrend(timeSeries, trend)
-    trends.append(trend)
-    season = preprocessing.getSeasons(detrended)
-    detrendedSeasons.append(season)
+trends = utils.getTrends(data.matrix)
+seasons = utils.getDetrendedSeasons(data.matrix)
 
-# ---> Preprocess shown data and get last 15 points of each row for starting frames used to predict
+# ---> Get the last 15 points of each shown timeseries and scale (Henk will predict from here)
 preprocessedShown = utils.detrendAndDeseasonMatrix(data.shown)
-# Scaler can only take matrix width 15
-last15PreprocessedShown = []
-for row in preprocessedShown:
-    last15PreprocessedShown.append(row[len(row) - 15:])
-# Scale the last 15 points of each shown timeSeries
-last15PreprocessedScaledShown = scaler.transform(last15PreprocessedShown)
+startingFrames = utils.getLastFrames(preprocessedShown, 15)
+startingFrames = scaler.transform(startingFrames)
+startingFrames = utils.getLastFrames(startingFrames, 14)
 
-# Get the starting frames (last 14 frames of visible preprocessed data)
-startingFrames = []
-for timeSeries in last15PreprocessedScaledShown:
-    startingFrame = timeSeries[len(timeSeries) - frameWidth + 1:]
-    startingFrames.append(startingFrame)
-
-# Iteratively make 18 predictions after each starting frame
+# ---> Start predicting
 print("Henk is starting the competition..")
-contestPredictions = []
+
+predictedValues = []
+# Make 18 predictions
 for i in range(predictionPoints):
-    # Make predictions for all starting frames
+    # Predict the next value for all rows
     predictions = henk.MLP.predict(startingFrames)
-    contestPredictions.append(predictions)
-    # Add these predictions to all starting frames and shift the frame over one to the right
+    # Add predicted values to the end of all rows
+    startingFrames = utils.appendRows(startingFrames, predictions)
+    # Create copy of the current frames to undo preprocessing
+    frames = utils.duplicateMatrix(startingFrames)
+    frames = scaler.scaler.inverse_transform(frames)
+    # Todo: add trends and seasons to frames and take the last point for the predictedValues
 
-    # Add predictions to startingFrames
-    # Descale, add season, add trend, save those predictions
-
-    startingFrames = utils.addAndShift(startingFrames, predictions)
-
-# Transpose to return to original format || Assuming that this works
-contestPredictions = utils.transpose(contestPredictions)
+# # ---> Preprocess shown data and get last 15 points of each row for starting frames used to predict
+# preprocessedShown = utils.detrendAndDeseasonMatrix(data.shown)
+# # Scaler can only take matrix width 15
+# last15PreprocessedShown = []
+# for row in preprocessedShown:
+#     last15PreprocessedShown.append(row[len(row) - 15:])
+# # Scale the last 15 points of each shown timeSeries
+# last15PreprocessedScaledShown = scaler.transform(last15PreprocessedShown)
+#
+# # Get the starting frames (last 14 frames of visible preprocessed data)
+# startingFrames = []
+# for timeSeries in last15PreprocessedScaledShown:
+#     startingFrame = timeSeries[len(timeSeries) - frameWidth + 1:]
+#     startingFrames.append(startingFrame)
+#
+# # Iteratively make 18 predictions after each starting frame
+# print("Henk is starting the competition..")
+# contestPredictions = []
+# for i in range(predictionPoints):
+#     # Make predictions for all starting frames
+#     predictions = henk.MLP.predict(startingFrames)
+#     contestPredictions.append(predictions)
+#     # Add these predictions to all starting frames and shift the frame over one to the right
+#
+#     # Add predictions to startingFrames
+#     # Descale, add season, add trend, save those predictions
+#
+#     startingFrames = utils.addAndShift(startingFrames, predictions)
+#
+# # Transpose to return to original format || Assuming that this works
+# contestPredictions = utils.transpose(contestPredictions)
 
 # Undo scaling
 # contestPredictions = scaler.scaler.inverse_transform(contestPredictions)
