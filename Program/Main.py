@@ -121,4 +121,9 @@ print("Henk has successfully made " + str(len(predictedValues[0])) + " predictio
       + str(len(predictedValues)) + " timeseries..")
 utils.matrixToCsv(predictedValues, outputPath)
 print("Predictions saved to: " + outputPath + "..")
+
+# -----------------------------------------
+#    QUANTITATIVE/QUALITATIVE ANALYSIS
+# -----------------------------------------
+
 print("Program finished :)")
