@@ -119,7 +119,6 @@ predictedValues = utils.transpose(predictedValues)
 # ---> Finish program
 print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
       + str(len(predictedValues)) + " timeseries..")
-
 utils.matrixToCsv(predictedValues, outputPath)
 print("Predictions saved to: " + outputPath + "..")
 print("Program finished :)")
