@@ -182,6 +182,13 @@ def getLastFrames(matrix, frameWidth):
     return startingFrames
 
 
+def getLastItems(matrix):
+    array = []
+    for row in matrix:
+        array.append(row[len(row)-1])
+    return array
+
+
 def appendRows(matrix1, matrix2):
     newMatrix = []
     for i in range(len(matrix1)):
@@ -194,3 +201,28 @@ def duplicateMatrix(matrix):
     for row in matrix:
         newMatrix.append(row)
     return newMatrix
+
+
+def addArrays(array1, array2):
+    newMatrix = []
+    for i in range(len(array1)):
+        newMatrix.append(preprocessing.addArray(array1[i], array2[i]))
+    return newMatrix
+
+def popFirst(array):
+    newMatrix = []
+    for row in array:
+        newMatrix.append(numpy.delete(row, 0))
+    return newMatrix
+
+def getFrames(matrix, start, end):
+    newMatrix = []
+    for i in range(len(matrix)):
+        newMatrix.append(matrix[i][start:end])
+    return newMatrix
+
+
+def matrixToCsv(matrix, path):
+    with open(path, 'w', newline='') as file:
+        mywriter = csv.writer(file, delimiter=',')
+        mywriter.writerows(matrix)

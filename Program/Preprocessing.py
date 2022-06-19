@@ -51,12 +51,11 @@ def removeTrend(timeSeries, trend):
     return detrendedSeries
 
 # Removes the trend of a given time series and returns the detrended version
-def addTrend(timeSeries, trend):
+def addArray(timeSeries, trend):
     # Add trend from preprocessd model
-    detrendedSeries = [timeSeries[i] + trend[i] for i in range(0, len(timeSeries))]
+    addedSeries = [timeSeries[i] + trend[i] for i in range(0, len(timeSeries))]
 
-    return detrendedSeries
-
+    return addedSeries
 
 def getSeasons(timeSeries):
     # Time Series Decomposition

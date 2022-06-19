@@ -7,6 +7,7 @@ from Program.Scaler import Scaler
 
 # Constants
 dataPath = '../Data/subset2.csv'
+outputPath = '../Data/predictions.csv'
 trainingSplit = 0.85
 predictionPoints = 18
 frameWidth = 15
@@ -83,7 +84,9 @@ print("Henk R^2 score: " + str(score))
 # ---> Get the Trends and Seasons of all Timeseries (used for preprocessing, not training)
 print("Getting Henk ready for competition..")
 trends = utils.getTrends(data.matrix)
+trends = utils.getLastFrames(trends, predictionPoints + 14)
 seasons = utils.getDetrendedSeasons(data.matrix)
+seasons = utils.getLastFrames(seasons, predictionPoints + 14)
 
 # ---> Get the last 15 points of each shown timeseries and scale (Henk will predict from here)
 preprocessedShown = utils.detrendAndDeseasonMatrix(data.shown)
@@ -98,66 +101,25 @@ predictedValues = []
 # Make 18 predictions
 for i in range(predictionPoints):
     # Predict the next value for all rows
-    predictions = henk.MLP.predict(startingFrames)
+    rawPredictions = henk.MLP.predict(startingFrames)
     # Add predicted values to the end of all rows
-    startingFrames = utils.appendRows(startingFrames, predictions)
+    startingFrames = utils.appendRows(startingFrames, rawPredictions)
     # Create copy of the current frames to undo preprocessing
     frames = utils.duplicateMatrix(startingFrames)
     frames = scaler.scaler.inverse_transform(frames)
-    # Todo: add trends and seasons to frames and take the last point for the predictedValues
+    framesSeasons = utils.getFrames(seasons, i, i+15)
+    framesTrends = utils.getFrames(trends, i, i+15)
+    frames = utils.addArrays(frames, framesSeasons)
+    frames = utils.addArrays(frames, framesTrends)
+    predictions = utils.getLastItems(frames)
+    predictedValues.append(predictions)
+    # Pop first element of startingFrames to prepare for next prediction
+    startingFrames = utils.popFirst(startingFrames)
 
-# # ---> Preprocess shown data and get last 15 points of each row for starting frames used to predict
-# preprocessedShown = utils.detrendAndDeseasonMatrix(data.shown)
-# # Scaler can only take matrix width 15
-# last15PreprocessedShown = []
-# for row in preprocessedShown:
-#     last15PreprocessedShown.append(row[len(row) - 15:])
-# # Scale the last 15 points of each shown timeSeries
-# last15PreprocessedScaledShown = scaler.transform(last15PreprocessedShown)
-#
-# # Get the starting frames (last 14 frames of visible preprocessed data)
-# startingFrames = []
-# for timeSeries in last15PreprocessedScaledShown:
-#     startingFrame = timeSeries[len(timeSeries) - frameWidth + 1:]
-#     startingFrames.append(startingFrame)
-#
-# # Iteratively make 18 predictions after each starting frame
-# print("Henk is starting the competition..")
-# contestPredictions = []
-# for i in range(predictionPoints):
-#     # Make predictions for all starting frames
-#     predictions = henk.MLP.predict(startingFrames)
-#     contestPredictions.append(predictions)
-#     # Add these predictions to all starting frames and shift the frame over one to the right
-#
-#     # Add predictions to startingFrames
-#     # Descale, add season, add trend, save those predictions
-#
-#     startingFrames = utils.addAndShift(startingFrames, predictions)
-#
-# # Transpose to return to original format || Assuming that this works
-# contestPredictions = utils.transpose(contestPredictions)
+predictedValues = utils.transpose(predictedValues)
+print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
+      + str(len(predictedValues)) + " timeseries..")
 
-# Undo scaling
-# contestPredictions = scaler.scaler.inverse_transform(contestPredictions)
-
-# first split the last 18 points from all data
-
-# then on all data except the 18 points:
-# split all the data in 14 X points and 1 Y point and move this 'frame'
-# detrend, deseasonalize and scale the data
-# store the trend season and scale for all the dataframes
-# since you need to add these back when you want to predict the split off 18 points
-# in the end(prob store them in an array)
-
-# then split the data into train and test
-# fit Henk on the training data(without the 18 points), it learns by comparing its prediction to the actual value
-# cross validate if Henk does well by using cross validation on the testing data(without the 18 points)
-
-# now change the parameters according to the result of cross validation
-
-# after you have set the hyperparameters to be good and checked these again:
-# let Henk predict for all data the 18 points that you first split
-# add to these the trend season and scale back
-# compare the output to the actual output of the timeseries
-# calculate the score of Henk, with SMAPE etc
+utils.matrixToCsv(predictedValues, outputPath)
+print("Predictions saved to: " + outputPath + "..")
+print("Program finished :)")
