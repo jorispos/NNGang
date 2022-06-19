@@ -1,6 +1,5 @@
 # Imports
 import Program.Utils as utils
-import Program.Preprocessing as preprocessing
 from Program.Data import Data
 from Program.Henk import Henk
 from Program.Scaler import Scaler
@@ -96,7 +95,6 @@ startingFrames = utils.getLastFrames(startingFrames, 14)
 
 # ---> Start predicting
 print("Henk is starting the competition..")
-
 predictedValues = []
 # Make 18 predictions
 for i in range(predictionPoints):
@@ -117,6 +115,8 @@ for i in range(predictionPoints):
     startingFrames = utils.popFirst(startingFrames)
 
 predictedValues = utils.transpose(predictedValues)
+
+# ---> Finish program
 print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
       + str(len(predictedValues)) + " timeseries..")
 
