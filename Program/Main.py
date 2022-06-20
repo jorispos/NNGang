@@ -116,17 +116,16 @@ for i in range(predictionPoints):
 
 predictedValues = utils.transpose(predictedValues)
 
-# ---> Finish program
+# ---> Save predictions
 print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
       + str(len(predictedValues)) + " timeseries..")
 utils.matrixToCsv(predictedValues, outputPath)
 print("Predictions saved to: " + outputPath + "..")
 
-# ---> Graph predictions over actual values
-utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, 10)
-
 # -----------------------------------------
 #    QUANTITATIVE/QUALITATIVE ANALYSIS
 # -----------------------------------------
 
+# ---> Program finished
+utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, 100)
 print("Program finished :)")
