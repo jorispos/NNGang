@@ -65,6 +65,6 @@ def getSeasons(timeSeries):
 
 def removeSeasons(timeSeries, seasons):
     # Deseasonalize
-    deseasonalized = timeSeries - seasons
+    deseasonalized = [timeSeries[i] - seasons[i] for i in range(0, len(timeSeries))]
 
     return deseasonalized

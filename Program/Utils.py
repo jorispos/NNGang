@@ -136,7 +136,7 @@ def detrendAndDeseasonMatrix(matrix):
         detrended = preprocessing.removeTrend(timeSeries, trend)
         # Deseason the detrended data
         season = preprocessing.getSeasons(detrended)
-        deseasoned = preprocessing.removeSeasons(timeSeries, season)
+        deseasoned = preprocessing.removeSeasons(detrended, season)
         # Add detrended and deseasoned data to list
         detrendedAndDeseasoned.append(deseasoned)
     return detrendedAndDeseasoned
