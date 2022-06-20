@@ -185,7 +185,7 @@ def getLastFrames(matrix, frameWidth):
 def getLastItems(matrix):
     array = []
     for row in matrix:
-        array.append(row[len(row)-1])
+        array.append(row[len(row) - 1])
     return array
 
 
@@ -209,11 +209,13 @@ def addArrays(array1, array2):
         newMatrix.append(preprocessing.addArray(array1[i], array2[i]))
     return newMatrix
 
+
 def popFirst(array):
     newMatrix = []
     for row in array:
         newMatrix.append(numpy.delete(row, 0))
     return newMatrix
+
 
 def getFrames(matrix, start, end):
     newMatrix = []
@@ -226,3 +228,29 @@ def matrixToCsv(matrix, path):
     with open(path, 'w', newline='') as file:
         mywriter = csv.writer(file, delimiter=',')
         mywriter.writerows(matrix)
+
+
+def printOverlayMatrices(matrix1, matrix2):
+    for i in range(len(matrix1)):
+        plt.plot(matrix1[i], c="blue")
+        plt.plot(matrix2[i], c="red")
+        plt.title("Graph " + str(i), fontsize=16)
+        plt.show()
+
+
+def graphPredictionsOverlay(timeSeries, predictions):
+    predictionPoints = len(predictions)
+    timeSeriesLength = len(timeSeries)
+    plt.plot(range(0, timeSeriesLength), timeSeries, c = "yellow")
+    plt.plot(range(timeSeriesLength-predictionPoints, timeSeriesLength), predictions, c = "red")
+    plt.xlabel('Time (days)')
+    plt.ylabel('Price ($)')
+    plt.title('Henk in action')
+    blueLegend = mpatches.Patch(color='yellow', label='Actual Data')
+    greenLegend = mpatches.Patch(color='red', label='Predicted data')
+    plt.legend(handles=[blueLegend, greenLegend])
+    plt.show()
+
+def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs):
+    for i in range(graphs):
+        graphPredictionsOverlay(timeSeriesMatrix[i], predictionsMatrix[i])

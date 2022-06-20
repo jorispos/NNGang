@@ -122,6 +122,9 @@ print("Henk has successfully made " + str(len(predictedValues[0])) + " predictio
 utils.matrixToCsv(predictedValues, outputPath)
 print("Predictions saved to: " + outputPath + "..")
 
+# ---> Graph predictions over actual values
+utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, 10)
+
 # -----------------------------------------
 #    QUANTITATIVE/QUALITATIVE ANALYSIS
 # -----------------------------------------
