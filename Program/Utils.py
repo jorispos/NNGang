@@ -238,9 +238,10 @@ def printOverlayMatrices(matrix1, matrix2):
         plt.show()
 
 
-def graphPredictionsOverlay(timeSeries, predictions):
+def graphPredictionsOverlay(timeSeries, predictions, dir):
     predictionPoints = len(predictions)
     timeSeriesLength = len(timeSeries)
+    plt.clf()
     plt.plot(range(0, timeSeriesLength), timeSeries, c = "yellow")
     plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), numpy.append(timeSeries[timeSeriesLength-predictionPoints-1], predictions), c = "red")
     plt.xlabel('Time (days)')
@@ -249,8 +250,10 @@ def graphPredictionsOverlay(timeSeries, predictions):
     blueLegend = mpatches.Patch(color='yellow', label='Actual Data')
     greenLegend = mpatches.Patch(color='red', label='Predicted data')
     plt.legend(handles=[blueLegend, greenLegend])
-    plt.show()
+    plt.savefig(dir)
 
-def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs):
+def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs, dir):
+    print("Generating " + str(len(timeSeriesMatrix)) + " plots..")
     for i in range(graphs):
-        graphPredictionsOverlay(timeSeriesMatrix[i], predictionsMatrix[i])
+        graphPredictionsOverlay(timeSeriesMatrix[i], predictionsMatrix[i], dir + 'Graph' + str(i))
+    print("Plots sucessfully generated and saved to: " + dir)

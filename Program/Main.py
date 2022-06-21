@@ -7,6 +7,7 @@ from Program.Scaler import Scaler
 # Constants
 dataPath = '../Data/subset2.csv'
 outputPath = '../Data/predictions.csv'
+plotsPath = '../Plots/'
 trainingSplit = 0.85
 predictionPoints = 18
 frameWidth = 15
@@ -127,5 +128,5 @@ print("Predictions saved to: " + outputPath + "..")
 # -----------------------------------------
 
 # ---> Program finished
-utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, 100)
+utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
 print("Program finished :)")
