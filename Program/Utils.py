@@ -242,7 +242,7 @@ def graphPredictionsOverlay(timeSeries, predictions):
     predictionPoints = len(predictions)
     timeSeriesLength = len(timeSeries)
     plt.plot(range(0, timeSeriesLength), timeSeries, c = "yellow")
-    plt.plot(range(timeSeriesLength-predictionPoints, timeSeriesLength), predictions, c = "red")
+    plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), numpy.append(timeSeries[timeSeriesLength-predictionPoints-1], predictions), c = "red")
     plt.xlabel('Time (days)')
     plt.ylabel('Price ($)')
     plt.title('Henk in action')
