@@ -251,7 +251,7 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     shownLegend = mpatches.Patch(color='lawngreen', label='Given Data')
     predictedLegend = mpatches.Patch(color='greenyellow', label='Actual Events')
     actualLegend = mpatches.Patch(color='orange', label='Predicted Data')
-    plt.legend(handles=[shownLegend, actualLegend, predictedLegend])
+    plt.legend(handles=[shownLegend, predictedLegend, actualLegend])
     plt.savefig(dir)
 
 def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs, dir):
