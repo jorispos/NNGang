@@ -1,8 +1,6 @@
 import Program.Utils as utils
 from Program.Scaler import Scaler
 # Constants
-
-
 dataPath = '../Data/subset2.csv'
 
 # Retrieve the time series matrix from the CSV data
