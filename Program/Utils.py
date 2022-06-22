@@ -248,9 +248,9 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     plt.xlabel('Time (days)')
     plt.ylabel('Price ($)')
     plt.title('Henk in action')
-    shownLegend = mpatches.Patch(color='yellow', label='Given Data')
-    predictedLegend = mpatches.Patch(color='red', label='Predicted data')
-    actualLegend = mpatches.Patch(color='red', label='Actual events')
+    shownLegend = mpatches.Patch(color='lawngreen', label='Given Data')
+    predictedLegend = mpatches.Patch(color='greenyellow', label='Predicted data')
+    actualLegend = mpatches.Patch(color='orange', label='Actual events')
     plt.legend(handles=[shownLegend, predictedLegend, actualLegend])
     plt.savefig(dir)
 
