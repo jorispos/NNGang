@@ -1,3 +1,5 @@
 # NNGang
-A stock market neural network trader that is going to get us very, very rich <br/>
-by Joris, Joris, Tobias, and Max![Example](https://user-images.githubusercontent.com/28119128/169660424-8e8be7a5-2db6-4970-b3f5-02c288719495.png)
+A stock market neural network trader that is going to get us very, very rich! <br/>
+by Joris, Joris, Tobias, and Max
+
+![Graph254](https://user-images.githubusercontent.com/28119128/174753058-c5222bbb-bee0-4711-95bf-06116d2db377.png)
