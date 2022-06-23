@@ -5,7 +5,7 @@ from Program.Henk import Henk
 from Program.Scaler import Scaler
 
 # Constants
-dataPath = '../Data/subset2.csv'
+dataPath = '../Data/subset1.csv'
 outputPath = '../Data/predictions.csv'
 plotsPath = '../Plots/'
 trainingSplit = 0.85
