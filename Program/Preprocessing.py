@@ -29,12 +29,14 @@ def getTrend(timeSeries):
     X = np.reshape(X, (len(X), 1))
     y = timeSeries
 
-    # Compute quadratic model
-    pf = PolynomialFeatures(degree=2)
-    Xp = pf.fit_transform(X)
-    md2 = LinearRegression()
-    md2.fit(Xp, y)
-    trend = md2.predict(Xp)
+    # Compute linear model
+    pf1 = PolynomialFeatures(degree=1)
+    Xp1 = pf1.fit_transform(X)
+    md1 = LinearRegression()
+    md1.fit(Xp1, y)
+    trend1 = md1.predict(Xp1)
+
+
 
     return trend
 

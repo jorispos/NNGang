@@ -2,6 +2,11 @@ import csv
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import random
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+
 import Program.Preprocessing as preprocessing
 import numpy
 
@@ -242,6 +247,7 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     predictionPoints = len(predictions)
     timeSeriesLength = len(timeSeries)
     plt.clf()
+
     plt.plot(range(0, timeSeriesLength-predictionPoints), timeSeries[0:timeSeriesLength-predictionPoints], c = "lawngreen")
     plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), timeSeries[timeSeriesLength-predictionPoints-1:], c = "greenyellow")
     plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), numpy.append(timeSeries[timeSeriesLength-predictionPoints-1], predictions), c = "orange")
@@ -252,10 +258,69 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     predictedLegend = mpatches.Patch(color='greenyellow', label='Actual Events')
     actualLegend = mpatches.Patch(color='orange', label='Predicted Data')
     plt.legend(handles=[shownLegend, predictedLegend, actualLegend])
-    plt.savefig(dir)
+    plt.show()
+    #plt.savefig(dir)
 
 def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs, dir):
     print("Generating " + str(len(timeSeriesMatrix)) + " plots..")
     for i in range(graphs):
         graphPredictionsOverlay(timeSeriesMatrix[i], predictionsMatrix[i], dir + 'Graph' + str(i))
     print("Plots sucessfully generated and saved to: " + dir)
+
+def calculateSmapeVector2(predictionData, actualData):
+    differenceSum = 0
+    for i in range(len(predictionData)):
+        A = predictionData[i]
+        F = predictionData[i]
+
+        diff = abs(A - F)
+        diff = diff / ((A + F)/2)
+        differenceSum += diff
+    differenceSum *= 100/len(predictionData)
+    return differenceSum
+
+def calculateSmapeVector(A, F):
+    return 100/len(A) * np.sum(2 * np.abs(F - A) / (np.abs(A) + np.abs(F)))
+
+def squeezeMatrix(matrix):
+    newMatrix = []
+    for row in matrix:
+        for item in row:
+            newMatrix.append(item)
+    return np.array(newMatrix)
+
+def calculateSmapeMatrix(matrix1, matrix2):
+    vector1 = squeezeMatrix(matrix1)
+    vector2 = squeezeMatrix(matrix2)
+    return calculateSmapeVector(vector1, vector2)
+
+def getTrendModels(matrix):
+    models = []
+
+    for timeSeries in matrix:
+        # Reformat X and y
+        X = range(len(timeSeries))
+        X = np.reshape(X, (len(X), 1))
+        y = timeSeries
+
+        # Compute quadratic model
+        pf = PolynomialFeatures(degree=1)
+        Xp = pf.fit_transform(X)
+        md2 = LinearRegression()
+        md2.fit(Xp, y)
+        models.append(md2)
+
+    return models
+
+def getTrendsFromModels(matrix, models):
+    trendPoints = []
+
+    for i in range(len(matrix)):
+        Xp = range(len(matrix[i]) + 18)
+        Xp = np.reshape(Xp, (len(Xp), 1))
+        pf = PolynomialFeatures(degree=1)
+        Xp = pf.fit_transform(Xp)
+        points = models[i].predict(Xp)
+        trendPoints.append(points)
+
+    return trendPoints

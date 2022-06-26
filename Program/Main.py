@@ -1,4 +1,6 @@
 # Imports
+from matplotlib import pyplot as plt
+
 import Program.Utils as utils
 from Program.Data import Data
 from Program.Henk import Henk
@@ -57,9 +59,23 @@ print("Preprocessing successfully completed..")
 trainingData = Data(preprocessedTrainingData)
 trainingData.splitXY()
 
+# ---> Preparing testing data for Henk
+testingData = Data(preprocessedTestingData)
+testingData.splitXY()
+
+# Test hyper-params
+# params = []
+# for x in range(1,10):
+#     for y in range(1,10):
+#         param = [x, y]
+#         params.append(param)
+
+# lowest = 100
+# lowestParam = (0, 0)
+# for param in params:
 # ---> Initializing Henk
 print("Initializing Henk..")
-henk = Henk()
+henk = Henk((8, 8, 6))
 print("Training Henk..")
 henk.MLP.fit(trainingData.x, trainingData.y)
 print("Successfully trained Henk on " + str(len(trainingData.x)) + " data samples..")
@@ -68,14 +84,16 @@ print("Successfully trained Henk on " + str(len(trainingData.x)) + " data sample
 #    CROSS-VALIDATING
 # ----------------------
 
-# ---> Preparing testing data for Henk
-testingData = Data(preprocessedTestingData)
-testingData.splitXY()
-
 # ---> Score Henk
 print("Cross-validating Henk on testing data..")
-score = henk.MLP.score(testingData.x, testingData.y)
-print("Henk R^2 score: " + str(score))
+#score = henk.MLP.score(testingData.x, testingData.y)
+print()
+score = utils.calculateSmapeVector(henk.MLP.predict(testingData.x), testingData.y)
+# if score < lowest:
+#     lowest = score
+#     lowestParam = param
+print("Henk SMAPE score: " + str(score) + " on: " + str((8, 8, 6)))
+# print("lowest param was " + str(lowestParam) + " with a score of: " + str(lowest))
 
 # -------------------------------
 #    MAKE CONTEST PREDICTIONS
@@ -83,8 +101,20 @@ print("Henk R^2 score: " + str(score))
 
 # ---> Get the Trends and Seasons of all Timeseries (used for preprocessing, not training)
 print("Getting Henk ready for competition..")
-trends = utils.getTrends(data.matrix)
+trendsModels = utils.getTrendModels(data.shown)
+trends = utils.getTrendsFromModels(data.shown, trendsModels)
+# trends = utils.getTrends(data.matrix)
+
+# for i in range(len(data.matrix)):
+#     plt.plot(data.matrix[i], 'green')
+#     plt.plot(trends[i], 'red')
+#     plt.title('yo')
+#     plt.show()
+
 trends = utils.getLastFrames(trends, predictionPoints + 14)
+
+
+
 seasons = utils.getDetrendedSeasons(data.matrix)
 seasons = utils.getLastFrames(seasons, predictionPoints + 14)
 
@@ -116,6 +146,8 @@ for i in range(predictionPoints):
     startingFrames = utils.popFirst(startingFrames)
 
 predictedValues = utils.transpose(predictedValues)
+competitionScore = utils.calculateSmapeMatrix(predictedValues, data.hidden)
+print("Henk competition score: " + str(competitionScore))
 
 # ---> Save predictions
 print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
