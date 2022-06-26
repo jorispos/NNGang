@@ -89,7 +89,8 @@ print("Successfully trained Henk on " + str(len(trainingData.x)) + " data sample
 
 # ---> Score Henk
 print("Cross-validating Henk on testing data..")
-#score = henk.MLP.score(testingData.x, testingData.y)
+print("Henk R^2 training score: " + str(henk.MLP.score(testingData.x, testingData.y)))
+
 score = utils.calculateSmapeVector(henk.MLP.predict(testingData.x), testingData.y)
 # if score < lowest:
 #     lowest = score
@@ -159,5 +160,5 @@ print("Predictions saved to: " + outputPath + "..")
 # -----------------------------------------
 
 # ---> Program finished
-# utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
+utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
 print("Program finished :)")
