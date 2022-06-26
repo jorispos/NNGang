@@ -187,6 +187,13 @@ def getLastFrames(matrix, frameWidth):
     return startingFrames
 
 
+def getFirstFrames(matrix, frameWidth):
+    frames = []
+    for row in matrix:
+        frames.append(row[:frameWidth])
+    return frames
+
+
 def getLastItems(matrix):
     array = []
     for row in matrix:
@@ -303,12 +310,18 @@ def getTrendModels(matrix):
         X = np.reshape(X, (len(X), 1))
         y = timeSeries
 
+        # Compute linear model
+        pf1 = PolynomialFeatures(degree=1)
+        Xp1 = pf1.fit_transform(X)
+        md1 = LinearRegression()
+        md1.fit(Xp1, y)
+
         # Compute quadratic model
-        pf = PolynomialFeatures(degree=1)
-        Xp = pf.fit_transform(X)
+        pf2 = PolynomialFeatures(degree=2)
+        Xp2 = pf2.fit_transform(X)
         md2 = LinearRegression()
-        md2.fit(Xp, y)
-        models.append(md2)
+        md2.fit(Xp2, y)
+        models.append((md1, md2))
 
     return models
 
@@ -316,11 +329,36 @@ def getTrendsFromModels(matrix, models):
     trendPoints = []
 
     for i in range(len(matrix)):
-        Xp = range(len(matrix[i]) + 18)
-        Xp = np.reshape(Xp, (len(Xp), 1))
-        pf = PolynomialFeatures(degree=1)
-        Xp = pf.fit_transform(Xp)
-        points = models[i].predict(Xp)
-        trendPoints.append(points)
+        Xp1 = range(len(matrix[i]) + 18)
+        Xp1 = np.reshape(Xp1, (len(Xp1), 1))
+        pf1 = PolynomialFeatures(degree=1)
+        Xp1 = pf1.fit_transform(Xp1)
+        points1 = models[i][0].predict(Xp1)
+
+        Xp2 = range(len(matrix[i]) + 18)
+        Xp2 = np.reshape(Xp2, (len(Xp2), 1))
+        pf2 = PolynomialFeatures(degree=2)
+        Xp2 = pf2.fit_transform(Xp2)
+        points2 = models[i][1].predict(Xp2)
+
+        trend = [(points1[i] + points2[i])/2 for i in range(0, len(points1))]
+        trendPoints.append(trend)
 
     return trendPoints
+
+
+def getEntireSeasons(seasons, data):
+    newMatrix = []
+
+    for i in range(len(seasons)):
+        preferredLength = len(data[i])
+        seasonality = seasons[i]
+
+        season = []
+        replications = (int) ((preferredLength / len(seasonality))+1)
+        for rep in range(replications):
+            for item in seasonality:
+                season.append(item)
+
+        newMatrix.append(season[:preferredLength])
+    return newMatrix

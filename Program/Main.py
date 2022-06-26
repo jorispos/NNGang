@@ -65,17 +65,20 @@ testingData.splitXY()
 
 # Test hyper-params
 # params = []
-# for x in range(1,10):
-#     for y in range(1,10):
-#         param = [x, y]
-#         params.append(param)
-
+# al = 0
+# while al < 0.0005:
+#     al += 0.00001
+#     tol = 0
+#     while tol < 0.0005:
+#         tol += 0.00001
+#         params.append((al, tol))
+#
 # lowest = 100
-# lowestParam = (0, 0)
+# lowestParam = 100
 # for param in params:
 # ---> Initializing Henk
 print("Initializing Henk..")
-henk = Henk((8, 8, 6))
+henk = Henk()
 print("Training Henk..")
 henk.MLP.fit(trainingData.x, trainingData.y)
 print("Successfully trained Henk on " + str(len(trainingData.x)) + " data samples..")
@@ -87,12 +90,11 @@ print("Successfully trained Henk on " + str(len(trainingData.x)) + " data sample
 # ---> Score Henk
 print("Cross-validating Henk on testing data..")
 #score = henk.MLP.score(testingData.x, testingData.y)
-print()
 score = utils.calculateSmapeVector(henk.MLP.predict(testingData.x), testingData.y)
 # if score < lowest:
 #     lowest = score
 #     lowestParam = param
-print("Henk SMAPE score: " + str(score) + " on: " + str((8, 8, 6)))
+print("Henk SMAPE training score: " + str(score))
 # print("lowest param was " + str(lowestParam) + " with a score of: " + str(lowest))
 
 # -------------------------------
@@ -103,19 +105,16 @@ print("Henk SMAPE score: " + str(score) + " on: " + str((8, 8, 6)))
 print("Getting Henk ready for competition..")
 trendsModels = utils.getTrendModels(data.shown)
 trends = utils.getTrendsFromModels(data.shown, trendsModels)
-# trends = utils.getTrends(data.matrix)
-
 # for i in range(len(data.matrix)):
 #     plt.plot(data.matrix[i], 'green')
 #     plt.plot(trends[i], 'red')
 #     plt.title('yo')
 #     plt.show()
-
 trends = utils.getLastFrames(trends, predictionPoints + 14)
 
-
-
-seasons = utils.getDetrendedSeasons(data.matrix)
+seasons = utils.getDetrendedSeasons(data.shown)
+seasons = utils.getFirstFrames(seasons, 7)
+seasons = utils.getEntireSeasons(seasons, data.shown)
 seasons = utils.getLastFrames(seasons, predictionPoints + 14)
 
 # ---> Get the last 15 points of each shown timeseries and scale (Henk will predict from here)
@@ -147,7 +146,7 @@ for i in range(predictionPoints):
 
 predictedValues = utils.transpose(predictedValues)
 competitionScore = utils.calculateSmapeMatrix(predictedValues, data.hidden)
-print("Henk competition score: " + str(competitionScore))
+print("Henk competition SMAPE score: " + str(competitionScore))
 
 # ---> Save predictions
 print("Henk has successfully made " + str(len(predictedValues[0])) + " predictions for "
@@ -160,5 +159,5 @@ print("Predictions saved to: " + outputPath + "..")
 # -----------------------------------------
 
 # ---> Program finished
-utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
+# utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
 print("Program finished :)")

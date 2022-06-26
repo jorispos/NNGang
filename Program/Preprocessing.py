@@ -36,7 +36,14 @@ def getTrend(timeSeries):
     md1.fit(Xp1, y)
     trend1 = md1.predict(Xp1)
 
+    # Compute quadratic model
+    pf2 = PolynomialFeatures(degree=2)
+    Xp2 = pf2.fit_transform(X)
+    md2 = LinearRegression()
+    md2.fit(Xp2, y)
+    trend2 = md2.predict(Xp2)
 
+    trend = [(trend1[i] + trend2[i])/2 for i in range(0, len(trend1))]
 
     return trend
 
