@@ -41,7 +41,6 @@ def displayGraphs(x, y, predictions, timeLength):
         plt.plot(timeLength, predictions[i], 'ro')
         plt.xlabel('Time')
         plt.ylabel('Price')
-        plt.title('Henk in action')
         redLegend = mpatches.Patch(color='red', label='Predicted data')
         yellowLegend = mpatches.Patch(color='#D5CF0C', label='Actual data')
         plt.legend(handles=[redLegend, yellowLegend])
@@ -260,19 +259,19 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), numpy.append(timeSeries[timeSeriesLength-predictionPoints-1], predictions), c = "orange")
     plt.xlabel('Time (days)')
     plt.ylabel('Price ($)')
-    plt.title('Henk in action')
     shownLegend = mpatches.Patch(color='lawngreen', label='Given Data')
-    predictedLegend = mpatches.Patch(color='greenyellow', label='Actual Events')
+    predictedLegend = mpatches.Patch(color='greenyellow', label='Actual Data')
     actualLegend = mpatches.Patch(color='orange', label='Predicted Data')
     plt.legend(handles=[shownLegend, predictedLegend, actualLegend])
-    plt.show()
-    #plt.savefig(dir)
+    plt.savefig(dir)
+
 
 def graphPredictionsOverlayMatrix(timeSeriesMatrix, predictionsMatrix, graphs, dir):
     print("Generating " + str(len(timeSeriesMatrix)) + " plots..")
     for i in range(graphs):
         graphPredictionsOverlay(timeSeriesMatrix[i], predictionsMatrix[i], dir + 'Graph' + str(i))
     print("Plots sucessfully generated and saved to: " + dir)
+
 
 def calculateSmapeVector2(predictionData, actualData):
     differenceSum = 0

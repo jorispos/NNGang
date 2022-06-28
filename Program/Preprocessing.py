@@ -1,9 +1,11 @@
 # Split a time series into many small time series with a given width
+import numpy
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import seasonal_decompose
+import Program.Utils as utils
 
 
 def splitSeries(timeSeries, frameWidth, emptySpace):
@@ -43,7 +45,7 @@ def getTrend(timeSeries):
     md2.fit(Xp2, y)
     trend2 = md2.predict(Xp2)
 
-    trend = [(trend1[i] + trend2[i])/2 for i in range(0, len(trend1))]
+    trend = [(trend1[i] + trend2[i]) / 2 for i in range(0, len(trend1))]
 
     return trend
 
@@ -59,6 +61,7 @@ def removeTrend(timeSeries, trend):
 
     return detrendedSeries
 
+
 # Removes the trend of a given time series and returns the detrended version
 def addArray(timeSeries, trend):
     # Add trend from preprocessd model
@@ -66,9 +69,11 @@ def addArray(timeSeries, trend):
 
     return addedSeries
 
+
 def getSeasons(timeSeries):
     # Time Series Decomposition
     result_mul = seasonal_decompose(timeSeries, model='additive', period=7)
+    # utils.plotData(result_mul.seasonal, "seasons", 16)
     return result_mul.seasonal
 
 
