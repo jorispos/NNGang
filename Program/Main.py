@@ -9,7 +9,7 @@ from Program.Scaler import Scaler
 # Constants
 dataPath = '../Data/subset1.csv'
 outputPath = '../Data/predictions.csv'
-plotsPath = '../Plots/'
+plotsPath = '../Plots/predictionplots/'
 trainingSplit = 0.85
 predictionPoints = 18
 frameWidth = 15
@@ -105,7 +105,7 @@ print("Henk SMAPE training score: " + str(score))
 # ---> Get the Trends and Seasons of all Timeseries (used for preprocessing, not training)
 print("Getting Henk ready for competition..")
 trendsModels = utils.getTrendModels(data.shown)
-trends = utils.getTrendsFromModels(data.shown, trendsModels)
+trends = utils.getTrendsFromModels(data.shown, trendsModels, data.matrix)
 # for i in range(len(data.matrix)):
 #     plt.plot(data.matrix[i], 'green')
 #     plt.plot(trends[i], 'red')
@@ -120,8 +120,10 @@ seasons = utils.getLastFrames(seasons, predictionPoints + 14)
 
 # ---> Get the last 15 points of each shown timeseries and scale (Henk will predict from here)
 preprocessedShown = utils.detrendAndDeseasonMatrix(data.shown)
-startingFrames = utils.getLastFrames(preprocessedShown, 15)
-startingFrames = scaler.transform(startingFrames)
+startingFramesUnscaled = utils.getLastFrames(preprocessedShown, 15)
+startingFrames = scaler.transform(startingFramesUnscaled)
+#utils.plotOriginalScaled(startingFramesUnscaled, startingFrames)
+
 startingFrames = utils.getLastFrames(startingFrames, 14)
 
 # ---> Start predicting
@@ -160,5 +162,5 @@ print("Predictions saved to: " + outputPath + "..")
 # -----------------------------------------
 
 # ---> Program finished
-utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
+# utils.graphPredictionsOverlayMatrix(data.matrix, predictedValues, len(data.matrix), plotsPath)
 print("Program finished :)")

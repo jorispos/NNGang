@@ -132,8 +132,30 @@ def transpose(matrix):
     return matrix_T
 
 
+def plotOriginalSeasons(detrended, season, i):
+    # Original
+    plt.clf()
+
+    plt.plot(detrended, c="lawngreen")
+    plt.xlabel('Time (days)')
+    plt.ylabel('Price ($)')
+    shownLegend = mpatches.Patch(color='lawngreen', label='Detrended Data')
+    plt.legend(handles=[shownLegend])
+    plt.savefig("../Plots/seasonalityplots/og" + str(i))
+    # Seasonality
+    plt.clf()
+
+    plt.plot(season, c="orange")
+    plt.xlabel('Time (days)')
+    plt.ylabel('Price ($)')
+    shownLegend = mpatches.Patch(color='orange', label='Seasonality')
+    plt.legend(handles=[shownLegend])
+    plt.savefig("../Plots/seasonalityplots/se" + str(i))
+
+
 def detrendAndDeseasonMatrix(matrix):
     detrendedAndDeseasoned = []
+    i = 0
     for timeSeries in matrix:
         # Detrend
         trend = preprocessing.getTrend(timeSeries)
@@ -143,6 +165,9 @@ def detrendAndDeseasonMatrix(matrix):
         deseasoned = preprocessing.removeSeasons(detrended, season)
         # Add detrended and deseasoned data to list
         detrendedAndDeseasoned.append(deseasoned)
+
+        #plotOriginalSeasons(detrended, season, i)
+        i += 1
     return detrendedAndDeseasoned
 
 
@@ -254,13 +279,16 @@ def graphPredictionsOverlay(timeSeries, predictions, dir):
     timeSeriesLength = len(timeSeries)
     plt.clf()
 
-    plt.plot(range(0, timeSeriesLength-predictionPoints), timeSeries[0:timeSeriesLength-predictionPoints], c = "lawngreen")
-    plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), timeSeries[timeSeriesLength-predictionPoints-1:], c = "greenyellow")
-    plt.plot(range(timeSeriesLength-predictionPoints-1, timeSeriesLength), numpy.append(timeSeries[timeSeriesLength-predictionPoints-1], predictions), c = "orange")
+    plt.plot(range(0, timeSeriesLength - predictionPoints), timeSeries[0:timeSeriesLength - predictionPoints],
+             c="lawngreen")
+    plt.plot(range(timeSeriesLength - predictionPoints - 1, timeSeriesLength),
+             timeSeries[timeSeriesLength - predictionPoints - 1:], c="greenyellow")
+    plt.plot(range(timeSeriesLength - predictionPoints - 1, timeSeriesLength),
+             numpy.append(timeSeries[timeSeriesLength - predictionPoints - 1], predictions), c="orange")
     plt.xlabel('Time (days)')
     plt.ylabel('Price ($)')
-    shownLegend = mpatches.Patch(color='lawngreen', label='Given Data')
-    predictedLegend = mpatches.Patch(color='greenyellow', label='Actual Data')
+    shownLegend = mpatches.Patch(color='lawngreen', label='Shown Data')
+    predictedLegend = mpatches.Patch(color='greenyellow', label='Hidden Data')
     actualLegend = mpatches.Patch(color='orange', label='Predicted Data')
     plt.legend(handles=[shownLegend, predictedLegend, actualLegend])
     plt.savefig(dir)
@@ -280,13 +308,15 @@ def calculateSmapeVector2(predictionData, actualData):
         F = predictionData[i]
 
         diff = abs(A - F)
-        diff = diff / ((A + F)/2)
+        diff = diff / ((A + F) / 2)
         differenceSum += diff
-    differenceSum *= 100/len(predictionData)
+    differenceSum *= 100 / len(predictionData)
     return differenceSum
 
+
 def calculateSmapeVector(A, F):
-    return 100/len(A) * np.sum(2 * np.abs(F - A) / (np.abs(A) + np.abs(F)))
+    return 100 / len(A) * np.sum(2 * np.abs(F - A) / (np.abs(A) + np.abs(F)))
+
 
 def squeezeMatrix(matrix):
     newMatrix = []
@@ -295,10 +325,12 @@ def squeezeMatrix(matrix):
             newMatrix.append(item)
     return np.array(newMatrix)
 
+
 def calculateSmapeMatrix(matrix1, matrix2):
     vector1 = squeezeMatrix(matrix1)
     vector2 = squeezeMatrix(matrix2)
     return calculateSmapeVector(vector1, vector2)
+
 
 def getTrendModels(matrix):
     models = []
@@ -324,7 +356,8 @@ def getTrendModels(matrix):
 
     return models
 
-def getTrendsFromModels(matrix, models):
+
+def getTrendsFromModels(matrix, models, fullMatrix):
     trendPoints = []
 
     for i in range(len(matrix)):
@@ -340,10 +373,57 @@ def getTrendsFromModels(matrix, models):
         Xp2 = pf2.fit_transform(Xp2)
         points2 = models[i][1].predict(Xp2)
 
-        trend = [(points1[i] + points2[i])/2 for i in range(0, len(points1))]
+        trend = [(points1[i] + points2[i]) / 2 for i in range(0, len(points1))]
         trendPoints.append(trend)
+        # plotMissedTrend(fullMatrix[i], trend, i)
+        plotThreeTrendsOverlay(matrix[i], fullMatrix[i], points1, points2, trend, i)
 
     return trendPoints
+
+
+def plotMissedTrend(timeSeries, trend, i):
+    predictionPoints = 18
+    timeSeriesLength = len(timeSeries)
+
+    plt.clf()
+
+    plt.plot(range(0, timeSeriesLength - predictionPoints), timeSeries[0:timeSeriesLength - predictionPoints],
+             c="lawngreen")
+    plt.plot(range(timeSeriesLength - predictionPoints - 1, timeSeriesLength),
+             timeSeries[timeSeriesLength - predictionPoints - 1:], c="greenyellow")
+    plt.plot(trend, c="darkorchid")
+    plt.axvline(x=timeSeriesLength-18, ymin=0.05, ymax=0.95, color='red', label='Shown/Hidden Cutoff')
+    plt.xlabel('Time (days)')
+    plt.ylabel('Price ($)')
+    shownLegend = mpatches.Patch(color='lawngreen', label='Shown Data')
+    predictedLegend = mpatches.Patch(color='greenyellow', label='Hidden Data')
+    combinedLegend = mpatches.Patch(color='darkorchid', label='Combined Trend')
+    plt.legend(handles=[shownLegend, predictedLegend, combinedLegend])
+    plt.savefig("../Plots/missedplots/" + str(i))
+
+
+def plotThreeTrendsOverlay(timeSeries, fullTimeSeries, trend1, trend2, trend3, i):
+    predictionPoints = 18
+    timeSeriesLength = len(fullTimeSeries)
+
+    plt.clf()
+
+    plt.plot(range(0, timeSeriesLength - predictionPoints), fullTimeSeries[0:timeSeriesLength - predictionPoints],
+             c="lawngreen")
+    plt.plot(range(timeSeriesLength - predictionPoints - 1, timeSeriesLength),
+             fullTimeSeries[timeSeriesLength - predictionPoints - 1:], c="greenyellow")
+    plt.plot(trend1, c="dodgerblue")
+    plt.plot(trend2, c="orangered")
+    plt.plot(trend3, c="darkorchid")
+    plt.xlabel('Time (days)')
+    plt.ylabel('Price ($)')
+    shownLegend = mpatches.Patch(color='lawngreen', label='Shown Data')
+    predictedLegend = mpatches.Patch(color='greenyellow', label='Hidden Data')
+    linearLegend = mpatches.Patch(color='dodgerblue', label='Linear Trend')
+    quadraticLegend = mpatches.Patch(color='orangered', label='Quadratic Trend')
+    combinedLegend = mpatches.Patch(color='darkorchid', label='Combined Trend')
+    plt.legend(handles=[shownLegend, predictedLegend, linearLegend, quadraticLegend, combinedLegend])
+    plt.savefig("../Plots/trendfigs/" + str(i))
 
 
 def getEntireSeasons(seasons, data):
@@ -354,10 +434,32 @@ def getEntireSeasons(seasons, data):
         seasonality = seasons[i]
 
         season = []
-        replications = (int) ((preferredLength / len(seasonality))+1)
+        replications = (int)((preferredLength / len(seasonality)) + 1)
         for rep in range(replications):
             for item in seasonality:
                 season.append(item)
 
         newMatrix.append(season[:preferredLength])
     return newMatrix
+
+
+def plotOriginalScaled(original, scaled):
+    for i in range(300):
+        # Original
+        plt.clf()
+
+        plt.plot(original[i], c="lawngreen")
+        plt.xlabel('Time (days)')
+        plt.ylabel('Price ($)')
+        shownLegend = mpatches.Patch(color='lawngreen', label='Detrended & Deseasoned Data')
+        plt.legend(handles=[shownLegend])
+        plt.savefig("../Plots/scaledplots/og" + str(i))
+        # Seasonality
+        plt.clf()
+
+        plt.plot(scaled[i], c="orange")
+        plt.xlabel('Time (days)')
+        plt.ylabel('Price ($)')
+        shownLegend = mpatches.Patch(color='orange', label='Scaled Data')
+        plt.legend(handles=[shownLegend])
+        plt.savefig("../Plots/scaledplots/se" + str(i))
